@@ -1,0 +1,44 @@
+<!-- data.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Display</title>
+    <script>
+        // Function to handle WebSocket connection
+        function connectWebSocket() {
+            var socket = new WebSocket("ws://your-django-server-domain/ws/pi/");
+
+            // On connection open
+            socket.onopen = function (event) {
+                console.log("WebSocket connection opened");
+            };
+
+            // On receiving message
+            socket.onmessage = function (event) {
+                // Update the data display area with the received data
+                document.getElementById("dataDisplay").innerHTML = event.data;
+            };
+
+            // On connection close
+            socket.onclose = function (event) {
+                console.log("WebSocket connection closed");
+            };
+
+            // On connection error
+            socket.onerror = function (error) {
+                console.error("WebSocket error:", error);
+            };
+        }
+
+        // Function to initialize WebSocket connection
+        function init() {
+            connectWebSocket();
+        }
+    </script>
+</head>
+<body onload="init()">
+    <h1>Data Display</h1>
+    <div id
